@@ -83,12 +83,12 @@
 
 ## Implementation Details
 - Design pattern
-   * Builder pattern: `Item.java`
+   * **Builder pattern**: `Item.java`
       * When convert events from TicketMasterAPI to java Items, use builder pattern to freely add fields.
-   * Factory pattern: `ExternalAPIFactory.java`, `DBConnectionFactory.java`
-      * `ExternalAPI.java`: support multiple function like recommendation of event, restaurant, news, jobs… just link to different public API like TicketMasterAPI. Improve extension ability.
+   * **Factory pattern**: `ExternalAPIFactory.java`, `DBConnectionFactory.java`
+      * `ExternalAPIFactory.java`: support multiple function like recommendation of event, restaurant, news, jobs… just link to different public API like TicketMasterAPI. Improve extension ability.
       * `DBConnectionFactory.java`: support multiple database like MySQL and MongoDB. Improve extension ability.
-   * Singleton pattern: `MySQLConnection.java`, `MongoDBConnection.java`
+   * **Singleton pattern**: `MySQLConnection.java`, `MongoDBConnection.java`
       * Only create specific number of instance of database, and the class can control the instance itself, and give the global access to outerclass
 
 ## User Behavior Analysis
