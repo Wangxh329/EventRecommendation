@@ -267,4 +267,36 @@ public class MySQLConnection implements DBConnection {
 		}
 		return false;
 	}
+	
+	@Override
+	public boolean register(String userId, String password, String firstname, String lastname) {
+		if (conn == null) {
+			return false;
+		}
+		String query = "INSERT INTO users (user_id, password, first_name, last_name) VALUES (?, ?, ?, ?)";
+		try {
+			// check if user_id has been registered
+			String sql = "SELECT user_id from users WHERE user_id = ? ";
+			PreparedStatement statement1 = conn.prepareStatement(sql);
+			statement1.setString(1, userId);
+			ResultSet rs = statement1.executeQuery();
+			String username = null;
+			while (rs.next()) {
+				username = rs.getString("user_id");
+				if (username.equals(userId)) {
+					return false;
+				}
+			}
+			// not registered
+			PreparedStatement statement = conn.prepareStatement(query);
+			statement.setString(1, userId);
+			statement.setString(2, password);
+			statement.setString(3, firstname);
+			statement.setString(4, lastname);
+			statement.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
 }

@@ -19,9 +19,11 @@ public class MongoDBTableCreation {
 		db.getCollection("users").drop();
 		db.getCollection("items").drop();
 
-		// Step 2: create new tables, populate data and create index.
-		db.getCollection("users").insertOne(new Document().append("first_name", "Hannah").append("last_name", "Wang")
-				.append("password", "3229c1097c00d497a0fd282d586be050").append("user_id", "hannah_wang"));
+//		// Step 2: create fake user.
+//		db.getCollection("users").insertOne(new Document().append("first_name", "Hannah").append("last_name", "Wang")
+//				.append("password", "b2fd75032b458ea5db99b903cbef081c").append("user_id", "hannah_wang"));
+		
+		// step 3: create new tables, populate data and create index.
 		// make sure user_id is unique.
 		IndexOptions indexOptions = new IndexOptions().unique(true); 
 

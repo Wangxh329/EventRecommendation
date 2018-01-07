@@ -158,6 +158,22 @@ public class MongoDBConnection implements DBConnection {
 	public boolean verifyLogin(String userId, String password) {
 		FindIterable<Document> iterable = db.getCollection("users").find(new Document("user_id", userId));
 		Document document = iterable.first();
+		if (iterable.first() == null) {
+			return false;
+		}
 		return document.getString("password").equals(password);
+	}
+
+	@Override
+	public boolean register(String userId, String password, String firstname, String lastname) {
+		// db.users.find({user_id:userId})
+		FindIterable<Document> iterable = db.getCollection("users").find(eq("user_id", userId));
+		if (iterable.first() != null) {
+			return false;
+		} else {
+			db.getCollection("users").insertOne(new Document().append("first_name", firstname).append("last_name", lastname)
+					.append("password", password).append("user_id", userId));
+		}
+		return true;
 	}
 }

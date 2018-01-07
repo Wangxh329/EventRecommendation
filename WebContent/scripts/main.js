@@ -12,8 +12,12 @@
 	 * Initialize
 	 */
 	function init() {
+		var registerForm = $('register-form');
+		hideElement(registerForm);
 		// Register event listeners
 		$('login-btn').addEventListener('click', login);
+		$('link-register-btn').addEventListener('click', linkRegister);
+		$('register-btn').addEventListener('click', register);
 		$('nearby-btn').addEventListener('click', loadNearbyItems);
 		$('fav-btn').addEventListener('click', loadFavoriteItems);
 		$('recommend-btn').addEventListener('click', loadRecommendedItems);
@@ -74,6 +78,7 @@
 
 	function onSessionInvalid() {
 		var loginForm = $('login-form');
+		var registerForm = $('register-form');
 		var itemNav = $('item-nav');
 		var itemList = $('item-list');
 		var avatar = $('avatar');
@@ -86,6 +91,7 @@
 		hideElement(logoutBtn);
 		hideElement(welcomeMsg);
 
+		hideElement(registerForm);
 		showElement(loginForm);
 	}
 
@@ -137,7 +143,7 @@
 	function login() {
 		var username = $('username').value;
 		var password = $('password').value;
-		password = md5("1111" + md5(password));
+		password = md5(username + md5(password));
 
 		// The request parameters
 		var url = './login';
@@ -167,6 +173,62 @@
 	function clearLoginError() {
 		$('login-error').innerHTML = '';
 	}
+	
+	// -----------------------------------
+	// Link to register
+	// -----------------------------------
+	function linkRegister() {
+		var registerForm = $('register-form');
+		var loginForm = $('login-form');
+		hideElement(loginForm);
+		showElement(registerForm);
+	}
+	
+	// -----------------------------------
+	// Register
+	// -----------------------------------
+	
+	function register() {
+		var registerForm = $('register-form');
+		var loginForm = $('login-form');
+		
+		var username = $('reg_username').value;
+		var password = $('reg_password').value;
+		var firstname = $('reg_firstname').value;
+		var lastname = $('reg_lastname').value;
+		password = md5(username + md5(password));
+
+		// The request parameters
+		var url = './register';
+		var params = 'user_id=' + username + '&password=' + password 
+			+ '&first_name=' + firstname + '&last_name=' + lastname;
+		var req = JSON.stringify({});
+
+		ajax('POST', url + '?' + params, req,
+		// successful callback
+		function(res) {
+			var result = JSON.parse(res);
+
+			// successfully registered
+			if (result.result === 'SUCCESS') {
+				hideElement(registerForm);
+				showElement(loginForm);
+			}
+		},
+		// error
+		function() {
+			showRegisterError();
+		});
+	}
+
+	function showRegisterError() {
+		$('register-error').innerHTML = 'The username has been registered. Please change another one!';
+	}
+
+	function clearRegisterError() {
+		$('register-error').innerHTML = '';
+	}
+	
 	// -----------------------------------
 	// Helper Functions
 	// -----------------------------------

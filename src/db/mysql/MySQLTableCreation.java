@@ -65,9 +65,9 @@ public class MySQLTableCreation { // 只在初始时创建一遍，或DB内容�
 					+ "FOREIGN KEY (user_id) REFERENCES users(user_id))";
 			stmt.executeUpdate(sql); // 一定后create history，否则REFERENCE会出问题
 
-			// Step 4: insert data
-			// Create a fake user to test
-			sql = "INSERT INTO users " + "VALUES (\"hannah_wang\", \"3229c1097c00d497a0fd282d586be050\", \"Hannah\", \"Wang\")";
+//			// Step 4: insert data
+//			// Create a fake user to test
+//			sql = "INSERT INTO users " + "VALUES (\"hannah_wang\", \"b2fd75032b458ea5db99b903cbef081c\", \"Hannah\", \"Wang\")";
 			System.out.println("Executing query:\n" + sql);
 			stmt.executeUpdate(sql);
 
