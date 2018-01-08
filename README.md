@@ -53,6 +53,9 @@
       * GET: invalid the session if exists and redirect to `index.html`
       * POST: the same as GET
       * return response
+   * Register
+      * Set a new user into users table/collection in database
+      * return response
 
 ![APIs design](https://raw.githubusercontent.com/Wangxh329/EventRecommendation/master/img_font_icon_sources/doc/APIs.png)
 > APIs design in logic tier
